@@ -4,32 +4,38 @@ namespace Streams
     {
         public static string ReadAllStreamContent(StringReader stringReader)
         {
-            // TODO #2-1. Implement the method by reading all content as a string with StringReader.ReadToEnd method.
-            throw new NotImplementedException();
+            _ = stringReader ?? throw new ArgumentNullException(nameof(stringReader));
+            return stringReader.ReadToEnd();
         }
 
         public static string ReadCurrentLine(StringReader stringReader)
         {
-            // TODO #2-2. Implement the method by reading a line of characters with StringReader.ReadLine method.
-            throw new NotImplementedException();
+            _ = stringReader ?? throw new ArgumentNullException(nameof(stringReader));
+            return stringReader!.ReadLine() ?? string.Empty;
         }
 
         public static bool ReadNextCharacter(StringReader stringReader, out char currentChar)
         {
-            // TODO #2-3. Implement the method by reading the next character with StringReader.Read method.
-            throw new NotImplementedException();
+            _ = stringReader ?? throw new ArgumentNullException(nameof(stringReader));
+            int nextChar = stringReader.Read();
+            currentChar = nextChar >= 0 ? Convert.ToChar(nextChar) : ' ';
+            return nextChar >= 0;
         }
 
         public static bool PeekNextCharacter(StringReader stringReader, out char currentChar)
         {
-            // TODO #2-4. Implement the method by returning the next available character with StringReader.Peek method.
-            throw new NotImplementedException();
+            _ = stringReader ?? throw new ArgumentNullException(nameof(stringReader));
+            int nextChar = stringReader.Peek();
+            currentChar = nextChar >= 0 ? Convert.ToChar(nextChar) : ' ';
+            return nextChar >= 0;
         }
 
         public static char[] ReadCharactersToBuffer(StringReader stringReader, int count)
         {
-            // TODO #2-5. Implement the method by creating a new array of chars and reading a block of characters to the array.
-            throw new NotImplementedException();
+            _ = stringReader ?? throw new ArgumentNullException(nameof(stringReader));
+            char[] buffer = new char[count];
+            _ = stringReader.Read(buffer, 0, count);
+            return buffer;
         }
     }
 }

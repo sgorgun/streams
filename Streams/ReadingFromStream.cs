@@ -6,26 +6,59 @@ namespace Streams
     {
         public static string ReadAllStreamContent(StreamReader streamReader)
         {
-            // TODO #4-1. Implement the method by reading all content as a string.
-            throw new NotImplementedException();
+            return new string(streamReader?.ReadToEnd());
         }
 
         public static string[] ReadLineByLine(StreamReader streamReader)
         {
-            // TODO #4-2. Implement the method by reading lines of characters as a string array.
-            throw new NotImplementedException();
+            _ = streamReader ?? throw new ArgumentNullException(nameof(streamReader));
+            var lines = new List<string>();
+            string? line;
+            while ((line = streamReader.ReadLine()) != null)
+            {
+                lines.Add(line);
+            }
+
+            return lines.ToArray();
         }
 
         public static StringBuilder ReadOnlyLettersAndNumbers(StreamReader streamReader)
         {
-            // TODO #4-3. Implement the method by reading only letters and numbers, and write the characters to a StringBuilder.
-            throw new NotImplementedException();
+            _ = streamReader ?? throw new ArgumentNullException(nameof(streamReader));
+            var stringBuilder = new StringBuilder();
+
+            int nextChar;
+            while ((nextChar = streamReader.Peek()) != -1)
+            {
+                char c = (char)nextChar;
+                if (char.IsLetterOrDigit(c))
+                {
+                    _ = stringBuilder.Append(c);
+                    _ = streamReader.Read();
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return stringBuilder;
         }
 
         public static char[][] ReadAsCharArrays(StreamReader streamReader, int arraySize)
         {
-            // TODO #4-4. Implement the method by returning an underlying string that sliced into jagged array of characters according to arraySize.
-            throw new NotImplementedException();
+            _ = streamReader ?? throw new ArgumentNullException(nameof(streamReader));
+            var charArrays = new List<char[]>();
+            char[] buffer = new char[arraySize];
+            int readChars;
+            while ((readChars = streamReader.Read(buffer, 0, arraySize)) > 0)
+            {
+                char[] copy = new char[readChars];
+                Array.Copy(buffer, copy, readChars);
+                charArrays.Add(copy);
+            }
+
+            return charArrays.ToArray();
         }
     }
 }
